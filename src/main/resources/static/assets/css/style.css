@@ -1,0 +1,40 @@
+#reviews-display-2{
+    display: none;
+}
+
+@media screen and (max-width: 1080px){
+@media screen and (min-width: 240px){
+    .ride{
+        margin: 20px 0 0 0;!important;
+    }
+
+    #reviews-display{
+    display: none;
+}
+#reviews-display-2{
+    display: block;
+}
+.search-box__input{
+    display: inline-block;
+    width: 100%;
+}
+
+}
+}
+
+@media screen
+and (min-device-width: 1200px)
+and (max-device-width: 1980px) {
+
+
+    .listing-container{
+        display: flex;
+    }
+    .ride{
+        max-width:63.7% !important;
+    }
+    .modal-content {
+        width: 39%;
+    }
+}
+

@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" xmlns:th="www.thymeleaf.com">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords"
+          content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
+    <meta name="description"
+          content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Ride Share Admin</title>
+    <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/admin/plugins/images/favicon.png">
+    <!-- Custom CSS -->
+    <link href="/assets/admin/plugins/bower_components/chartist/dist/chartist.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/admin/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+    <link href="/assets/admin/styles.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/vendors/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+
+
+
+    <![endif]-->
+</head>
+
+<body>
+<h1 id="status" style="display: none" th:text="${status}"></h1>
+<div id="deleteModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header" style="display: block">
+            <h2 style="float: left" id="header-name">DELETE ACCOUNT<span  style="margin: 0 0 0 5px; color: #28a745 "></span></h2>
+            <br><br>
+        </div>
+        <div class="modal-body">
+            <div class="Price">
+                <div style="width:auto; display: flex;">
+                </div>
+            </div>
+            <span style="display:block; text-align: center" id="status-message" >Confirm that account exists</span>
+        </div>
+        <div class="modal-footer">
+            <a class="search-box__btn" style="text-align: center" th:href="@{/data-table}" >Okay</a>
+        </div>
+    </div>
+</div>
+
+
+<!-- ============================================================== -->
+<!-- Preloader - style you can find in spinners.css -->
+<!-- ============================================================== -->
+<div class="preloader">
+    <div class="lds-ripple">
+        <div class="lds-pos"></div>
+        <div class="lds-pos"></div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+     data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+    <!-- ============================================================== -->
+    <!-- Topbar header - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <header class="topbar" data-navbarbg="skin5">
+        <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+            <div class="navbar-header" data-logobg="skin6">
+                <!-- ============================================================== -->
+                <!-- Logo -->
+                <!-- ============================================================== -->
+                <a class="navbar-brand" href="dashboard.html">
+                    <!-- Logo icon -->
+                    <b class="logo-icon">
+                        <!-- Dark Logo icon -->
+                        <img src="/assets/admin/plugins/images/logo-icon.png" alt="homepage" />
+                    </b>
+                    <!--End Logo icon -->
+                    <!-- Logo text -->
+                    <span class="logo-text">
+                            <!-- dark Logo text -->
+                            <img src="/assets/admin/plugins/images/logo-text.png" alt="homepage" />
+                        </span>
+                </a>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- toggle and nav items -->
+                <!-- ============================================================== -->
+                <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
+                   href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Logo -->
+            <!-- ============================================================== -->
+            <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
+                <ul class="navbar-nav d-none d-md-block d-lg-none">
+                    <li class="nav-item">
+                        <a class="nav-toggler nav-link waves-effect waves-light text-white"
+                           href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                    </li>
+                </ul>
+                <!-- ============================================================== -->
+                <!-- Right side toggle and nav items -->
+                <!-- ============================================================== -->
+                <ul class="navbar-nav ms-auto d-flex align-items-center">
+
+                    <!-- ============================================================== -->
+                    <!-- Search -->
+                    <!-- ============================================================== -->
+                    <li class=" in">
+                        <form role="search" class="app-search d-none d-md-block me-3">
+                            <input type="text" placeholder="Search..." class="form-control mt-0">
+                            <a href="" class="active">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </form>
+                    </li>
+                    <!-- ============================================================== -->
+                    <!-- User profile and search -->
+                    <!-- ============================================================== -->
+                    <li>
+                        <a class="profile-pic" href="#">
+                            <img src="/assets/admin/plugins/images/users/varun.jpg" alt="user-img" width="36"
+                                 class="img-circle"><span class="text-white font-medium">Steave</span></a>
+                    </li>
+                    <!-- ============================================================== -->
+                    <!-- User profile and search -->
+                    <!-- ============================================================== -->
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- ============================================================== -->
+    <!-- End Topbar header -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Left Sidebar - style you can find in sidebar.scss  -->
+    <!-- ============================================================== -->
+    <aside class="left-sidebar" data-sidebarbg="skin6">
+        <!-- Sidebar scroll-->
+        <div class="scroll-sidebar">
+            <!-- Sidebar navigation-->
+            <nav class="sidebar-nav">
+                <ul id="sidebarnav">
+                    <!-- User Profile-->
+                    <li class="sidebar-item pt-2">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/dashboard}"
+                           aria-expanded="false">
+                            <i class="far fa-clock" aria-hidden="true"></i>
+                            <span class="hide-menu">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/admin-profile}"
+                           aria-expanded="false">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <span class="hide-menu">Profile</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{/data-table}"
+                           aria-expanded="false">
+                            <i class="fa fa-table" aria-hidden="true"></i>
+                            <span class="hide-menu active">Basic Table</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" th:href="@{add-admin}"
+                           aria-expanded="false">
+                            <i class="fa fa-table" aria-hidden="true"></i>
+                            <span class="hide-menu">Add Administrator</span>
+                        </a>
+                    </li>
+                    <li class="text-center p-20 upgrade-btn">
+                        <a th:href="@{/logout}"
+                           class="btn d-grid btn-danger text-white" target="_blank">
+                            Logout</a>
+                    </li>
+                </ul>
+
+            </nav>
+            <!-- End Sidebar navigation -->
+        </div>
+        <!-- End Sidebar scroll-->
+    </aside>
+    <!-- ============================================================== -->
+    <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Page wrapper  -->
+    <!-- ============================================================== -->
+    <div class="page-wrapper">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="page-breadcrumb bg-white">
+            <div class="row align-items-center">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title">Data Table</h4>
+                </div>
+                <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                    <div class="d-md-flex">
+                        <ol class="breadcrumb ms-auto">
+                            <li><a th:href="@{/dashboard}" class="fw-normal">Dashboard</a></li>
+                        </ol>
+                        <a th:href="@{/logout}" target="_blank"
+                           class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">Logout</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+            <!-- ============================================================== -->
+            <!-- Start Page Content -->
+            <!-- ============================================================== -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="white-box">
+                        <h3 class="box-title">All Driver</h3>
+<!--                        <p class="text-muted">Add class <code>.table</code></p>-->
+                        <div class="table-responsive">
+                            <table class="table text-nowrap" id="example">
+                                <thead>
+                                <tr>
+                                    <th class="border-top-0">First Name</th>
+                                    <th class="border-top-0">Last Name</th>
+                                    <th class="border-top-0">Username</th>
+                                    <th class="border-top-0">Email</th>
+                                    <th class="border-top-0">Phone Number</th>
+                                    <th class="border-top-0">Status</th>
+                                    <th hidden>View</th>
+                                    <th hidden>Delete</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="driver:${driver}">
+                                    <td th:text="${driver.firstName}">1</td>
+                                    <td th:text="${driver.lastName}">Deshmukh</td>
+                                    <td th:text="${driver.username}">Prohaska</td>
+                                    <td th:text="${driver.emailAddress}">@Genelia</td>
+                                    <td th:text="${driver.phoneNumber}">admin</td>
+                                    <td th:text="${driver.status}">admin</td>
+                                    <td>
+                                        <a class="table-action" th:href="@{/delete-user/{id}(id=${driver.id})}">
+                                            <span class="fa fa-trash fa-1x" style="color: #f33155"></span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a type="button" class="table-action" th:href="@{/review-user/{id}(id=${driver.id})}">
+                                            <span class="fa fa-lock fa-1x" ></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="white-box">
+                        <h3 class="box-title">All Rider</h3>
+                        <!--                        <p class="text-muted">Add class <code>.table</code></p>-->
+                        <div class="table-responsive">
+                            <table class="table text-nowrap" id="example1">
+                                <thead>
+                                <tr>
+                                    <th class="border-top-0">Date</th>
+                                    <th class="border-top-0">Origin</th>
+                                    <th class="border-top-0">Destination</th>
+                                    <th class="border-top-0">MeetUp</th>
+                                    <th class="border-top-0">Phone Number</th>
+                                    <th class="border-top-0">Status</th>
+                                    <th hidden>View</th>
+                                    <th hidden>Delete</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="rider:${rider}">
+                                    <td th:text="${rider.firstName}">1</td>
+                                    <td th:text="${rider.lastName}">Deshmukh</td>
+                                    <td th:text="${rider.username}">Prohaska</td>
+                                    <td th:text="${rider.emailAddress}">@Genelia</td>
+                                    <td th:text="${rider.phoneNumber}">admin</td>
+                                    <td th:text="${rider.status}">admin</td>
+                                    <td>
+                                        <a class="table-action" th:href="@{/delete-user/{id}(id=${rider.id})}">
+                                            <span class="fa fa-trash fa-1x"  id="get" style="color: #f33155"></span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a type="button" class="table-action" th:href="@{/review-user/{id}(id=${rider.id})}">
+                                            <span class="fa fa-lock fa-1x" ></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="white-box">
+                        <h3 class="box-title">All Shared Rides</h3>
+                        <!--                        <p class="text-muted">Add class <code>.table</code></p>-->
+                        <div class="table-responsive">
+                            <table class="table text-nowrap" id="example2">
+                                <thead>
+                                <tr>
+                                    <th class="border-top-0">Date</th>
+                                    <th class="border-top-0">Origin</th>
+                                    <th class="border-top-0">Destination</th>
+                                    <th class="border-top-0">MeetUp</th>
+                                    <th class="border-top-0">Driver</th>
+                                    <th class="border-top-0">Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="ride:${ride}">
+                                    <td th:text="${ride.date}"></td>
+                                    <td th:text="${ride.origin}"></td>
+                                    <td th:text="${ride.destination}"></td>
+                                    <td th:text="${ride.meetUp}"></td>
+                                    <td th:text="${ride.driverUsername}"></td>
+                                    <td th:text="${ride.status}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="white-box">
+                        <h3 class="box-title">All Car</h3>
+                        <!--                        <p class="text-muted">Add class <code>.table</code></p>-->
+                        <div class="table-responsive">
+                            <table class="table text-nowrap" id="example3">
+                                <thead>
+                                <tr>
+                                    <th class="border-top-0">Driver</th>
+                                    <th class="border-top-0">Make</th>
+                                    <th class="border-top-0">Model</th>
+                                    <th class="border-top-0">Category</th>
+                                    <th class="border-top-0">Color</th>
+                                    <th class="border-top-0">Plate Number</th>
+                                    <th class="border-top-0">Seats</th>
+                                    <th class="border-top-0">Feature</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="car:${carData}">
+                                    <td th:text="${car.username}"></td>
+                                    <td th:text="${car.make}"></td>
+                                    <td th:text="${car.model}"></td>
+                                    <td th:text="${car.category}"></td>
+                                    <td th:text="${car.color}"></td>
+                                    <td th:text="${car.plateNumber}"></td>
+                                    <td th:text="${car.noSeat}"></td>
+                                    <td th:text="${car.specialFeature}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End PAge Content -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Right sidebar -->
+            <!-- ============================================================== -->
+            <!-- .right-sidebar -->
+            <!-- ============================================================== -->
+            <!-- End Right sidebar -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- footer -->
+        <!-- ============================================================== -->
+        <footer class="footer text-center"> 2021 © Ample Admin brought to you by <a
+                href="https://www.wrappixel.com/">wrappixel.com</a>
+        </footer>
+        <!-- ============================================================== -->
+        <!-- End footer -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="/assets/admin/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="/assets/admin/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/admin/js/app-style-switcher.js"></script>
+<!--Wave Effects -->
+<script src="/assets/admin/js/waves.js"></script>
+<!--Menu sidebar -->
+<script src="/assets/admin/js/sidebarmenu.js"></script>
+<!--Custom JavaScript -->
+<script src="/assets/admin/js/custom.js"></script>
+
+</body>
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable({
+            "order": [ 1, "desc" ]
+        });
+    } );
+
+    $(document).ready(function() {
+        $('#example1').DataTable({
+            "order": [ 1, "desc" ]
+        });
+    } );
+    $(document).ready(function() {
+        $('#example2').DataTable({
+            "order": [ 1, "desc" ]
+        });
+    } );
+    $(document).ready(function() {
+        $('#example3').DataTable({
+            "order": [ 1, "desc" ]
+        });
+    } );
+</script>
+<script>
+    import $ from "../static/assets/admin/plugins/bower_components/popper.js/dist/esm/popper-utils.min";
+
+    $(document).ready(function() {
+//      Setup - add a text input to each footer cell
+        $('#example tfoot th').each( function () {
+            // $(this).html( '<input class="form-control" type="text" placeholder="Search" />' );
+        } );
+
+        // DataTable
+        var table = $('#example').DataTable();
+        // DataTable
+        var table1 = $('#example1').DataTable();
+        // DataTable
+        var table2 = $('#example2').DataTable();
+        var table3 = $('#example3').DataTable();
+
+
+
+        // Apply the search
+        table.columns().every( function () {
+            var that = this;
+
+            $('input', this.footer() ).on( 'keyup change', function () {
+                if ( that.search() !== this.value ) {
+                    that
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
+
+        table1.columns().every( function () {
+            var that = this;
+
+            $('input', this.footer() ).on( 'keyup change', function () {
+                if ( that.search() !== this.value ) {
+                    that
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
+        table2.columns().every( function () {
+            var that = this;
+
+            $('input', this.footer() ).on( 'keyup change', function () {
+                if ( that.search() !== this.value ) {
+                    that
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
+
+        table3.columns().every( function () {
+            var that = this;
+
+            $('input', this.footer() ).on( 'keyup change', function () {
+                if ( that.search() !== this.value ) {
+                    that
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
+    } );
+</script>
+<script>
+    let successModal = document.getElementById("successModal");
+    let deleteModal = document.getElementById("deleteModal");
+    let message = document.getElementById("status-message");
+    let headerName = document.getElementById("header-name")
+
+
+    let status = document.getElementById("status").innerHTML
+    $(document).ready(function(){
+
+        if(status=="success"){
+            headerName.innerHTML="DELETE ACCOUNT";
+            message.innerHTML="Account successfully deleted";
+            deleteModal.style.display= "block";
+        }else if(status=="failed"){
+            headerName.innerHTML="DELETE ACCOUNT";
+            message.innerHTML="confirm account to be deleted exists";
+            deleteModal.style.display="block";
+        }else if(status=="pendingVerified"){
+            headerName.innerHTML="BLOCK/UNBLOCK ACCOUNT"
+            message.innerHTML="Pending account has been verified successfully"
+            deleteModal.style.display="block";
+        }else if(status=="activatedBlocked"){
+            headerName.innerHTML="BLOCK/UNBLOCK ACCOUNT"
+            message.innerHTML="Active account has been blocked successfully"
+            deleteModal.style.display="block";
+        }else if(status=="blockedActivated"){
+            headerName.innerHTML="BLOCK/UNBLOCK ACCOUNT"
+            message.innerHTML="Blocked account has been unblocked successfully"
+            deleteModal.style.display="block";
+        }
+    });
+
+</script>
+
+</html>

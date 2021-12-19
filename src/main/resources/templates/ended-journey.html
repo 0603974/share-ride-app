@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thyemeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ride Details || Entox || Entox HTML Template For Car Business</title>
+    <!-- favicons Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicons/favicon-16x16.png" />
+    <link rel="manifest" href="/assets/images/favicons/site.webmanifest" />
+    <meta name="description" content="Entox HTML Template For Car Business" />
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+            rel="stylesheet">
+
+
+    <link rel="stylesheet" href="/assets/vendors/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/assets/vendors/animate/animate.min.css" />
+
+
+    <link rel="stylesheet" href="/assets/vendors/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="/assets/vendors/jarallax/jarallax.css" />
+    <link rel="stylesheet" href="/assets/vendors/jquery-magnific-popup/jquery.magnific-popup.css" />
+    <link rel="stylesheet" href="/assets/vendors/nouislider/nouislider.min.css" />
+    <link rel="stylesheet" href="/assets/vendors/nouislider/nouislider.pips.css" />
+    <link rel="stylesheet" href="/assets/vendors/odometer/odometer.min.css" />
+    <link rel="stylesheet" href="/assets/vendors/swiper/swiper.min.css" />
+    <link rel="stylesheet" href="/assets/vendors/entox-icons/style.css">
+    <link rel="stylesheet" href="/assets/vendors/tiny-slider/tiny-slider.min.css" />
+    <link rel="stylesheet" href="/assets/vendors/reey-font/stylesheet.css" />
+    <link rel="stylesheet" href="/assets/vendors/owl-carousel/owl.carousel.min.css" />
+    <link rel="stylesheet" href="/assets/vendors/owl-carousel/owl.theme.default.min.css" />
+    <link rel="stylesheet" href="/assets/vendors/twentytwenty/twentytwenty.css" />
+    <link rel="stylesheet" href="/assets/vendors/bxslider/jquery.bxslider.css" />
+    <link rel="stylesheet" href="/assets/vendors/bootstrap-select/css/bootstrap-select.min.css" />
+    <link rel="stylesheet" href="/assets/vendors/vegas/vegas.min.css" />
+    <link rel="stylesheet" href="/assets/vendors/jquery-ui/jquery-ui.css" />
+    <link rel="stylesheet" href="/assets/vendors/timepicker/timePicker.css" />
+
+    <!-- template styles -->
+    <link rel="stylesheet" href="/assets/css/entox.css" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/entox-responsive.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+<p th:text="${status}" id="status" style="display: none"></p>
+
+
+<!--<p th:text="${current}" id="current" style="display: none"></p>-->
+<!-- The Modal -->
+
+<!--the modal-->
+
+<!-- failed modal -->
+<div id="failedModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header" style="display: block">
+            <h2 style="float: left">START JOURNEY <span class="fa fa-exclamation-triangle" style="margin: 0 0 0 5px; color: red"></span></h2>
+            <br><br>
+        </div>
+        <div class="modal-body">
+            <div class="Price">
+                <div style="width:auto; display: flex;">
+                </div>
+            </div>
+            <span style="display:block; text-align: center" id="status-message1">You cannot share ride at this time, confirm you have no active shares</span>
+        </div>
+        <div class="modal-footer">
+            <a class=" search-box__btn" th:href="@{/driver-ride}" style="text-align: center">My Rides</a>
+        </div>
+    </div>
+</div>
+<!--end of failed modal-->
+
+<!-- success modal -->
+<div id="successModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header" style="display: block">
+            <h2 style="float: left">RIDE REQUEST<span class="fa fa-check" style="margin: 0 0 0 5px; color: #28a745 "></span></h2>
+            <br><br>
+        </div>
+        <div class="modal-body">
+            <div class="Price">
+                <div style="width:auto; display: flex;">
+                </div>
+            </div>
+            <span style="display:block; text-align: center" id="status-message" >Your ride has been shared successfully, check to track progress </span>
+        </div>
+        <div class="modal-footer">
+            <a class=" search-box__btn" style="text-align: center" th:href="@{/driver-ride}" >My Ride</a>
+        </div>
+    </div>
+</div>
+<!--end of success modal-->
+
+<!-- no ride modal -->
+<div id="noRideModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header" style="display: block">
+            <h2 style="float: left">ACTIVE RIDE<span class="fa fa-check" style="margin: 0 0 0 5px; color: #28a745 "></span></h2>
+            <br><br>
+        </div>
+        <div class="modal-body">
+            <div class="Price">
+                <div style="width:auto; display: flex;">
+                </div>
+            </div>
+            <span style="display:block; text-align: center" >You have bo active ride, share a ride </span>
+        </div>
+        <div class="modal-footer">
+            <a class=" search-box__btn" style="text-align: center" th:href="@{/driver}" >Share Ride</a>
+        </div>
+    </div>
+</div>
+<!--end of no ride modal-->
+
+
+<!-- alert modal -->
+<div id="alertModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header" style="display: block">
+            <h2 style="float: left">ATTENTION <span class="fa fa-exclamation-triangle" style="margin: 0 0 0 5px; color: red"></span></h2>
+            <br><br>
+        </div>
+        <div class="modal-body">
+            <div class="Price">
+                <div style="width:auto; display: flex;">
+                </div>
+            </div>
+            <span style="display:block; text-align: center">Are you sure you want to cancel ride</span>
+        </div>
+        <div class="modal-footer">
+            <a th:href="@{/cancel-ride}" class=" search-box__btn yes"  style="text-align: center">YES</a>
+            <a class=" search-box__btn no" style="text-align: center" id="no">NO</a>
+        </div>
+    </div>
+</div>
+<!--end of alert modal-->
+
+<!-- no ride modal -->
+<div id="oneJourney" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header" style="display: block">
+            <h2 style="float: left">JOURNEY ENDED<span class="fa fa-check" style="margin: 0 0 0 5px; color: #28a745 "></span></h2>
+            <br><br>
+        </div>
+        <div class="modal-body">
+            <div class="Price">
+                <div style="width:auto; display: flex;">
+                </div>
+            </div>
+            <span style="display:block; text-align: center" th:text="${journey.username}+' journey lasted for '+${period}"></span>
+        </div>
+        <div class="modal-footer">
+            <a class=" search-box__btn" style="text-align: center" th:href="@{/driver-ride}" >Current Ride</a>
+        </div>
+    </div>
+</div>
+<!--end of no ride modal-->
+
+<div class="preloader">
+    <img class="preloader__image" width="60" src="/assets/images/loader.png" alt="" />
+</div>
+<!-- /.preloader -->
+<div class="page-wrapper">
+    <header class="main-header main-header-listing-page clearfix">
+        <div class="main-header__top">
+            <div class="main-header__top-left">
+                <p class="main-header__top-left-text">Welcome to our RideShare <a th:href="@{/register}">Register
+                    Now</a></p>
+            </div>
+            <div class="main-header__top-right">
+                <div class="main-header__top-right-social-box">
+                    <div class="main-header__top-right-social">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="clr-fb"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="clr-dri"><i class="fab fa-dribbble"></i></a>
+                        <a href="#" class="clr-ins"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="main-header__top-right-contact-box">
+                    <ul class="list-unstyled main-header__top-right-contact">
+                        <li><a href="mailto:needhelp@company.com">needhelp@company.com</a></li>
+                        <li><a href="tel:00-666-888-0000">00 666 888 0000</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <nav class="main-menu clearfix">
+            <div class="main-menu-wrapper clearfix">
+                <div class="main-menu-wrapper__left">
+                    <div class="main-menu-wrapper__logo">
+                        <a th:href="@{/}"><img src="/assets/images/resources/logo-1.png" alt=""></a>
+                    </div>
+                    <div class="main-menu-wrapper__main-menu">
+                        <a href="#" class="mobile-nav__toggler"><i class="fa fa-bars"></i></a>
+                        <ul class="main-menu__list">
+                            <li >
+                                <a th:href="@{/}">Home</a>
+                            </li>
+                            <li >
+                                <a th:href="@{/driver}">New Ride</a>
+                            </li>
+                            <li class="current">
+                                <a th:href="@{/driver-ride}">Current Ride</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="main-menu-wrapper__right">
+                    <div class="main-menu-wrapper__search-box-cart-box">
+                        <a th:href="@{/driver-profile}" class="main-menu-wrapper__cart fa fa-user"></a>
+                    </div>
+                    <div class="main-menu-wrapper__btn-box">
+                        <a th:href="@{/logout}" class="thm-btn main-menu-wrapper__btn">Log Out</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="stricky-header stricked-menu main-menu">
+        <div class="sticky-header__content"></div><!-- /.sticky-header__content -->
+    </div><!-- /.stricky-header -->
+
+    <!--Listing Top Start-->
+    <section class="listing-details-top">
+        <div class="container">
+            <ul class="list-unstyled listing-details-top__menu">
+                <li><a th:href="@{/driver}">Driver</a></li>
+            </ul>
+        </div>
+    </section>
+    <!--Listing Top End-->
+
+    <!--Listing Details Start-->
+    <section class="listing-details">
+        <div class="container">
+            <h2 style="margin: 0 0 44px 0" th:text="'Welcome, '+${username}"></h2>
+            <div class="row">
+                <div class="col-xl-8 col-lg-7">
+                    <div class="listing-details__left">
+                        <div class="listing-details__gallery clearfix">
+                            <div class="listing-details__gallery-content-box car_display" th:style="'background-image:url(' + ${car.carImgUrl} + ');'">
+
+                            </div>
+                        </div>
+                        <div class="listing-details__reviews-box" id="reviews-display">
+                            <h3 class="listing-details__reviews-title">Riders Comments</h3>
+                            <div class="listing-details__reviews-single"th:each="reviews : ${review}" >
+                                <div class="listing-details__reviews-img ">
+                                    <div class="fa fa-user fa-4x"></div>
+                                </div>
+                                <div class="listing-details__reviews-content">
+                                    <div class="listing-details__reviews-content-top">
+                                        <div class="listing-details__reviews-content-top-title">
+                                            <h3 th:text="${reviews.username}">David Cooper</h3>
+                                        </div>
+                                        <div class="listing-details__reviews-content-top-rating">
+                                            <ul class="list-unstyled listing-details__reviews-content-top-rating-box">
+                                                <li th:text="'('+${reviews.rating}+')'"></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <p class="listing-details__reviews-content-text" th:text="${reviews.description}">
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-5">
+                    <div class="listing-details__right" style="margin: 0 0 40px 0;">
+                        <div class="listing-details__features-box" >
+                            <div class="listing-details__features-box-single">
+                                <div class="listing-details__features-box-left">
+                                    <p>Make:</p>
+                                </div>
+                                <div class="listing-details__features-box-right">
+                                    <span th:text="${car.make}">Land Rover</span>
+                                </div>
+                            </div>
+                            <div class="listing-details__features-box-single">
+                                <div class="listing-details__features-box-left">
+                                    <p>Model:</p>
+                                </div>
+                                <div class="listing-details__features-box-right">
+                                    <span th:text="${car.model}">Evoupe</span>
+                                </div>
+                            </div>
+                            <div class="listing-details__features-box-single">
+                                <div class="listing-details__features-box-left">
+                                    <p>Category:</p>
+                                </div>
+                                <div class="listing-details__features-box-right">
+                                    <span th:text="${car.category}">Sedan Car</span>
+                                </div>
+                            </div>
+                            <div class="listing-details__features-box-single">
+                                <div class="listing-details__features-box-left">
+                                    <p>Color:</p>
+                                </div>
+                                <div class="listing-details__features-box-right">
+                                    <spanb th:text="${car.color}">Blue</spanb>
+                                </div>
+                            </div>
+                            <div class="listing-details__features-box-single">
+                                <div class="listing-details__features-box-left">
+                                    <p>Seater:</p>
+                                </div>
+                                <div class="listing-details__features-box-right">
+                                    <span th:text="${car.noSeat}">5-door</span>
+                                </div>
+                            </div>
+                            <div class="listing-details__features-box-single">
+                                <div class="listing-details__features-box-left">
+                                    <p>Special feature:</p>
+                                </div>
+                                <div class="listing-details__features-box-right">
+                                    <span th:text="${car.specialFeature}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <form class="listing-details__features-box" th:action="@{/share-ride}" method="post">
+                            <div class="listing-details__features-box-single">
+                                <div class="listing-details__features-box-right" style="width: 100%">
+                                    <input class="form-control form-control-line" placeholder="origin" name="origin">
+                                </div>
+                            </div>
+                            <div class="listing-details__features-box-single">
+                                <div class="listing-details__features-box-right" style="width: 100%">
+                                    <input class="form-control form-control-line" placeholder="Destination" name="destination">
+                                </div>
+                            </div>
+                            <div class="listing-details__features-box-single">
+                                <div class="listing-details__features-box-right" style="width: 100%">
+                                    <input class="form-control form-control-line" placeholder="Meet-up Location" name="meetUp">
+                                </div>
+                            </div>
+
+                            <div class="listing-details__features-box-single">
+                                <div class="listing-details__features-box-right" style="width: 100%">
+                                    <input type="date" class="form-control form-control-line" placeholder="Date" name="date">
+                                </div>
+                            </div>
+                            <div class="listing-details__features-box-single">
+                                <div class="listing-details__features-box-right" style="width: 100%">
+                                    <input type="time" class="form-control form-control-line" placeholder="Time" name="time">
+                                </div>
+                            </div>
+                            <div class="listing-details__features-box-single">
+                                <div class="listing-details__features-box-right" style="width: 100%">
+                                    <button action="submit" class="col-12  listing-details__ask-question-btn accept"  id="starRide">Share Ride</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="listing-details__ask-question" >
+                            <div class="col-12" style="display: flex">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="listing-details__reviews-box" id="reviews-display-2">
+                <h3 class="listing-details__reviews-title">Riders Comments</h3>
+                <div class="listing-details__reviews-single"th:each="reviews : ${review}" >
+                    <div class="listing-details__reviews-img ">
+                        <div class="fa fa-user fa-4x"></div>
+                    </div>
+                    <div class="listing-details__reviews-content">
+                        <div class="listing-details__reviews-content-top">
+                            <div class="listing-details__reviews-content-top-title">
+                                <h3 th:text="${reviews.username}">David Cooper</h3>
+                            </div>
+                            <div class="listing-details__reviews-content-top-rating">
+                                <ul class="list-unstyled listing-details__reviews-content-top-rating-box">
+                                    <li th:text="'('+${reviews.rating}+')'"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p class="listing-details__reviews-content-text" th:text="${reviews.description}">
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Listing Details End-->
+
+    <!--Site Footer One Start-->
+    <footer class="site-footer">
+        <div class="site-footer-bg" style="background-image: url(/assets/images/backgrounds/site-footer-bg.jpg)">
+        </div>
+        <div class="container">
+            <div class="site-footer__top">
+                <div class="row">
+                    <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="100ms">
+                        <div class="footer-widget__column footer-widget__about">
+                            <div class="footer-widget__about-logo">
+                                <a href="index.html"><img src="/assets/images/resources/footer-logo.png" alt=""></a>
+                            </div>
+                            <p class="footer-widget__about-text">ShareRide promotes car sharing where commuters going to the
+                                campus using similar routes can share transportation.
+                            </p>
+                            <a th:href="@{/register}" class="thm-btn footer-widget__about-btn">Register</a>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="200ms">
+                        <div class="footer-widget__column footer-widget__explore clearfix">
+                            <h3 class="footer-widget__title">Explore</h3>
+                            <ul class="footer-widget__explore-list footer-widget__explore-list-width list-unstyled">
+                                <li><a th:href="@{/driver}">New Ride</a></li>
+                                <li><a th:href="@{/shared-ride}">Shared Rides</a></li>
+                                <li><a th:href="@{/driver-ride}">Current Ride</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="400ms">
+                        <div class="footer-widget__column footer-widget__contact">
+                            <h3 class="footer-widget__title">Contact</h3>
+                            <ul class="list-unstyled footer-widget__contact-list">
+                                <li>
+                                    <div class="icon">
+                                        <span class="icon-pin"></span>
+                                    </div>
+                                    <div class="text">
+                                        <p>88 Broklyn Golden Street, USA</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="icon">
+                                        <span class="icon-clock"></span>
+                                    </div>
+                                    <div class="text">
+                                        <p>Mon - Sat 8:00 - 6:30</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="icon">
+                                        <span class="icon-email"></span>
+                                    </div>
+                                    <div class="text">
+                                        <p><a href="mailto:needhelp@company.com">needhelp@company.com</a></p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="icon">
+                                        <span class="icon-telephone"></span>
+                                    </div>
+                                    <div class="text">
+                                        <p><a href="tel:00-666-888-0000">00 666 888 0000</a></p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="400ms">
+                        <div class="footer-widget__column footer-widget__newsletter">
+                            <h3 class="footer-widget__title">Newsletter</h3>
+                            <p class="footer-widget__newsletter-text">Subsrcibe for latest articles and resources
+                            </p>
+                            <form class="footer-widget__newsletter-form">
+                                <div class="footer-widget__newsletter-input-box">
+                                    <input type="email" placeholder="Email address" name="email">
+                                    <button type="submit" class="footer-widget__newsletter-btn"><i
+                                            class="fas fa-envelope"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="site-footer-bottom">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="site-footer-bottom__inner">
+                            <div class="site-footer__social">
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="clr-fb"><i class="fab fa-facebook"></i></a>
+                                <a href="#" class="clr-ins"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--Site Footer One End-->
+
+
+</div><!-- /.page-wrapper -->
+
+
+<div class="mobile-nav__wrapper">
+    <div class="mobile-nav__overlay mobile-nav__toggler"></div>
+    <!-- /.mobile-nav__overlay -->
+    <div class="mobile-nav__content">
+        <span class="mobile-nav__close mobile-nav__toggler"><i class="fa fa-times"></i></span>
+
+        <div class="logo-box">
+            <a href="index.html" aria-label="logo image"><img src="/assets/images/resources/logo-1.png" width="155"
+                                                              alt="" /></a>
+        </div>
+        <!-- /.logo-box -->
+        <div class="mobile-nav__container"></div>
+        <!-- /.mobile-nav__container -->
+
+        <ul class="mobile-nav__contact list-unstyled">
+            <li>
+                <i class="fa fa-envelope"></i>
+                <a href="mailto:needhelp@packageName__.com">needhelp@entox.com</a>
+            </li>
+            <li>
+                <i class="fa fa-phone-alt"></i>
+                <a href="tel:666-888-0000">666 888 0000</a>
+            </li>
+        </ul><!-- /.mobile-nav__contact -->
+        <div class="mobile-nav__top">
+            <div class="mobile-nav__social">
+                <a href="#" class="fab fa-twitter"></a>
+                <a href="#" class="fab fa-facebook-square"></a>
+                <a href="#" class="fab fa-pinterest-p"></a>
+                <a href="#" class="fab fa-instagram"></a>
+            </div><!-- /.mobile-nav__social -->
+        </div><!-- /.mobile-nav__top -->
+
+
+
+    </div>
+    <!-- /.mobile-nav__content -->
+</div>
+<!-- /.mobile-nav__wrapper -->
+
+<div class="search-popup">
+    <div class="search-popup__overlay search-toggler"></div>
+    <!-- /.search-popup__overlay -->
+    <div class="search-popup__content">
+        <form action="#">
+            <label for="search" class="sr-only">search here</label><!-- /.sr-only -->
+            <input type="text" id="search" placeholder="Search Here..." />
+            <button type="submit" aria-label="search submit" class="thm-btn">
+                <i class="icon-magnifying-glass"></i>
+            </button>
+        </form>
+    </div>
+    <!-- /.search-popup__content -->
+</div>
+<!-- /.search-popup -->
+
+<a href="#" data-target="html" class="scroll-to-target scroll-to-top"><i class="fa fa-angle-up"></i></a>
+
+
+<script>
+    let status = document.getElementById("status").innerHTML;
+    var failedModal = document.getElementById("failedModal");
+    var successModal = document.getElementById("successModal");
+    let oneJourney = document.getElementById("oneJourney");
+
+
+    $(document).ready(function(){
+        if (status == "true") {
+            successModal.style.display = "block";
+            failedModal.style.display = "none";
+
+        } else if (status == "false") {
+            failedModal.style.display = "block";
+            successModal.style.display = "none";
+        }else if (status=="one-journey"){
+            oneJourney.style.display="block"
+        }
+    });
+
+</script>
+
+<script src="/assets/vendors/jquery/jquery-3.5.1.min.js"></script>
+<script src="/assets/vendors/jquery-migrate/jquery-migrate.min.js"></script>
+<script src="/assets/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendors/jarallax/jarallax.min.js"></script>
+<script src="/assets/vendors/jquery-ajaxchimp/jquery.ajaxchimp.min.js"></script>
+<script src="/assets/vendors/jquery-appear/jquery.appear.min.js"></script>
+<script src="/assets/vendors/jquery-circle-progress/jquery.circle-progress.min.js"></script>
+<script src="/assets/vendors/jquery-magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="/assets/vendors/jquery-validate/jquery.validate.min.js"></script>
+<script src="/assets/vendors/nouislider/nouislider.min.js"></script>
+<script src="/assets/vendors/odometer/odometer.min.js"></script>
+<script src="/assets/vendors/swiper/swiper.min.js"></script>
+<script src="/assets/vendors/tiny-slider/tiny-slider.min.js"></script>
+<script src="/assets/vendors/wnumb/wNumb.min.js"></script>
+<script src="/assets/vendors/wow/wow.js"></script>
+<script src="/assets/vendors/isotope/isotope.js"></script>
+<script src="/assets/vendors/countdown/countdown.min.js"></script>
+<script src="/assets/vendors/owl-carousel/owl.carousel.min.js"></script>
+<script src="/assets/vendors/twentytwenty/twentytwenty.js"></script>
+<script src="/assets/vendors/twentytwenty/jquery.event.move.js"></script>
+<script src="/assets/vendors/bxslider/jquery.bxslider.min.js"></script>
+<script src="/assets/vendors/bootstrap-select/js/bootstrap-select.min.js"></script>
+<script src="/assets/vendors/vegas/vegas.min.js"></script>
+<script src="/assets/vendors/jquery-ui/jquery-ui.js"></script>
+<script src="/assets/vendors/timepicker/timePicker.js"></script>
+
+<!-- template js -->
+<script src="/assets/js/entox.js"></script>
+</body>
+
+</html>

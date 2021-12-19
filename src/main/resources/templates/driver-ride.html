@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thyemeleaf.org">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Ride Details || Entox || Entox HTML Template For Car Business</title>
+    <!-- favicons Icons -->
+    <link href="/assets/images/favicons/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+    <link href="/assets/images/favicons/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"/>
+    <link href="/assets/images/favicons/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"/>
+    <link href="/assets/images/favicons/site.webmanifest" rel="manifest"/>
+    <meta content="Entox HTML Template For Car Business" name="description"/>
+
+    <!-- fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+            rel="stylesheet">
+
+
+    <link href="/assets/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/assets/vendors/animate/animate.min.css" rel="stylesheet"/>
+    <link href="/assets/vendors/fontawesome/css/all.min.css" rel="stylesheet"/>
+    <link href="/assets/vendors/jarallax/jarallax.css" rel="stylesheet"/>
+    <link href="/assets/vendors/jquery-magnific-popup/jquery.magnific-popup.css" rel="stylesheet"/>
+    <link href="/assets/vendors/nouislider/nouislider.min.css" rel="stylesheet"/>
+    <link href="/assets/vendors/nouislider/nouislider.pips.css" rel="stylesheet"/>
+    <link href="/assets/vendors/odometer/odometer.min.css" rel="stylesheet"/>
+    <link href="/assets/vendors/swiper/swiper.min.css" rel="stylesheet"/>
+    <link href="/assets/vendors/entox-icons/style.css" rel="stylesheet">
+    <link href="/assets/vendors/tiny-slider/tiny-slider.min.css" rel="stylesheet"/>
+    <link href="/assets/vendors/reey-font/stylesheet.css" rel="stylesheet"/>
+    <link href="/assets/vendors/owl-carousel/owl.carousel.min.css" rel="stylesheet"/>
+    <link href="/assets/vendors/owl-carousel/owl.theme.default.min.css" rel="stylesheet"/>
+    <link href="/assets/vendors/twentytwenty/twentytwenty.css" rel="stylesheet"/>
+    <link href="/assets/vendors/bxslider/jquery.bxslider.css" rel="stylesheet"/>
+    <link href="/assets/vendors/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet"/>
+    <link href="/assets/vendors/vegas/vegas.min.css" rel="stylesheet"/>
+    <link href="/assets/vendors/jquery-ui/jquery-ui.css" rel="stylesheet"/>
+    <link href="/assets/vendors/timepicker/timePicker.css" rel="stylesheet"/>
+
+    <!-- template styles -->
+    <link href="/assets/css/entox.css" rel="stylesheet"/>
+    <link href="/assets/css/entox-responsive.css" rel="stylesheet"/>
+    <link href="/assets/css/style.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <!-- template styles -->
+    <link href="/assets/css/entox.css" rel="stylesheet"/>
+    <link href="/assets/css/style.css" rel="stylesheet"/>
+
+    <link href="/assets/css/entox-responsive.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <!-- leaflet dependencies-->
+    <link crossorigin="" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+          rel="stylesheet"/>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script crossorigin=""
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <!-- geocode locator plugin depencies-->
+
+    <link href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.76.0/dist/L.Control.Locate.min.css"
+          rel="stylesheet"/>
+    <script charset="utf-8"
+            src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.76.0/dist/L.Control.Locate.min.js"></script>
+
+    <!-- geocoder -->
+    <link href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" rel="stylesheet"/>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <!-- leaflet dependencies end-->
+    <!--    axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+    <!-- geocoder -->
+
+    <link href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" rel="stylesheet"/>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+</head>
+
+<body>
+<p id="status" style="display: none" th:text="${status}"></p>
+
+<!--<p th:text="${current}" id="current" style="display: none"></p>-->
+<!-- The Modal -->
+<div class="modal" id="editModal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header" style="display: block">
+            <h3 style="float: left">Ride Details</h3>
+            <br><br>
+            <span style="display:block">Edit ride details.</span>
+        </div>
+        <div class="modal-body">
+            <div class="Price">
+                <div style="width:auto; display: flex;">
+                </div>
+            </div>
+
+            <form method="POST" onsubmit="myButton.disabled=true; return true;" th:action="@{/edit-ride}">
+                <div class="form-group">
+                    <div class="col-sm-12" style="margin-bottom: 20px; display: flex">
+                        <label style="margin-right: 57px; font-weight: 500">Origin: </label>
+                        <input class="form-control form-control-line" name="origin" placeholder="e.g: Lagos"
+                               required style="width: 90%" th:value="${ride.origin}"
+                               type="text">
+                    </div>
+                    <div class="col-sm-12" style="margin-bottom: 6px; display: flex ">
+                        <label style="margin-right: 20px; font-weight: 500">Destination: </label>
+                        <input class="form-control form-control-line" name="destination" placeholder="e.g: Ikeja"
+                               required style="width: 90%" th:value="${ride.destination}"
+                               type="text">
+                    </div>
+                    <div class="col-sm-12" style="display: flex; margin-left: 13px">
+                        <div class="col-sm-6" style="margin-bottom: 20px;">
+                            <label style="font-weight: 500">Date: </label>
+                            <input class="form-control form-control-line" name="date" placeholder="e.g: Ikeja"
+                                   required style="width: 90%" th:value="${ride.date}"
+                                   type="date">
+                        </div>
+                        <div class="col-sm-6" style="margin-bottom: 20px; ">
+                            <label style="font-weight: 500">Time: </label>
+                            <input class="form-control form-control-line" name="time" placeholder="e.g: Ikeja"
+                                   required style="width: 90%" th:value="${ride.time}"
+                                   type="time">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                </div>
+                <button id="submit-form" style="display: none" type="submit"></button>
+
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class=" search-box__btn" onclick="submitForm()">Make Changes</button>
+        </div>
+    </div>
+</div>
+<!--the modal-->
+
+<!-- failed modal -->
+<div class="modal" id="failedModal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header" style="display: block">
+            <h2 style="float: left">START JOURNEY <span class="fa fa-exclamation-triangle"
+                                                        style="margin: 0 0 0 5px; color: red"></span></h2>
+            <br><br>
+        </div>
+        <div class="modal-body">
+            <div class="Price">
+                <div style="width:auto; display: flex;">
+                </div>
+            </div>
+            <span id="status-message1" style="display:block; text-align: center"></span>
+        </div>
+        <div class="modal-footer">
+            <a class=" search-box__btn" id="close" style="text-align: center">close</a>
+        </div>
+    </div>
+</div>
+<!--end of failed modal-->
+
+<!-- success modal -->
+<div class="modal" id="successModal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header" style="display: block">
+            <h2 style="float: left">RIDE REQUEST<span class="fa fa-check"
+                                                      style="margin: 0 0 0 5px; color: #28a745 "></span></h2>
+            <br><br>
+        </div>
+        <div class="modal-body">
+            <div class="Price">
+                <div style="width:auto; display: flex;">
+                </div>
+            </div>
+            <span id="status-message" style="display:block; text-align: center"></span>
+        </div>
+        <div class="modal-footer">
+            <a class=" search-box__btn" style="text-align: center" th:href="@{/current-ride}">Current Ride</a>
+        </div>
+    </div>
+</div>
+<!--end of success modal-->
+
+
+<!-- alert modal -->
+<div class="modal" id="cancelRideModal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header" style="display: block">
+            <h2 style="float: left">ATTENTION <span class="fa fa-exclamation-triangle"
+                                                    style="margin: 0 0 0 5px; color: red"></span></h2>
+            <br><br>
+        </div>
+        <div class="modal-body">
+            <div class="Price">
+                <div style="width:auto; display: flex;">
+                </div>
+            </div>
+            <span style="display:block; text-align: center">Are you sure you want to cancel ride</span>
+        </div>
+        <div class="modal-footer">
+            <a class=" search-box__btn yes" style="text-align: center" th:href="@{/cancel-sharing}">YES</a>
+            <a class=" search-box__btn no" id="no" style="text-align: center">NO</a>
+        </div>
+    </div>
+</div>
+<!--end of alert modal-->
+
+<!-- edit success modal -->
+<div class="modal" id="editSuccessModal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header" style="display: block">
+            <h2 style="float: left">RIDE EDIT<span class="fa fa-check"
+                                                   style="margin: 0 0 0 5px; color: #28a745 "></span></h2>
+            <br><br>
+        </div>
+        <div class="modal-body">
+            <div class="Price">
+                <div style="width:auto; display: flex;">
+                </div>
+            </div>
+            <span style="display:block; text-align: center"> Ride has been edited successfully</span>
+        </div>
+        <div class="modal-footer">
+            <a class=" search-box__btn" style="text-align: center" th:href="@{/driver-ride}">Okay</a>
+        </div>
+    </div>
+</div>
+<!--end of success modal-->
+
+
+<!-- /.preloader -->
+<div class="page-wrapper">
+    <header class="main-header main-header-listing-page clearfix">
+        <div class="main-header__top">
+            <div class="main-header__top-left">
+                <p class="main-header__top-left-text">Welcome to our RideShare <a th:href="@{/register}">Register
+                    Now</a></p>
+            </div>
+            <div class="main-header__top-right">
+                <div class="main-header__top-right-social-box">
+                    <div class="main-header__top-right-social">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a class="clr-fb" href="#"><i class="fab fa-facebook"></i></a>
+                        <a class="clr-dri" href="#"><i class="fab fa-dribbble"></i></a>
+                        <a class="clr-ins" href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="main-header__top-right-contact-box">
+                    <ul class="list-unstyled main-header__top-right-contact">
+                        <li><a href="mailto:needhelp@company.com">needhelp@company.com</a></li>
+                        <li><a href="tel:00-666-888-0000">00 666 888 0000</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <nav class="main-menu clearfix">
+            <div class="main-menu-wrapper clearfix">
+                <div class="main-menu-wrapper__left">
+                    <div class="main-menu-wrapper__logo">
+                        <a th:href="@{/}"><img alt="" src="/assets/images/resources/logo-1.png"></a>
+                    </div>
+                    <div class="main-menu-wrapper__main-menu">
+                        <a class="mobile-nav__toggler" href="#"><i class="fa fa-bars"></i></a>
+                        <ul class="main-menu__list">
+                            <li>
+                                <a th:href="@{/}">Home</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/driver}">New Ride</a>
+                            </li>
+                            <li class="current">
+                                <a th:href="@{/driver-ride}">Current Ride</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="main-menu-wrapper__right">
+                    <div class="main-menu-wrapper__search-box-cart-box">
+                        <a class="main-menu-wrapper__cart fa fa-user" th:href="@{/driver-profile}"></a>
+                    </div>
+                    <div class="main-menu-wrapper__btn-box">
+                        <a class="thm-btn main-menu-wrapper__btn" th:href="@{/logout}">Log Out</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="stricky-header stricked-menu main-menu">
+        <div class="sticky-header__content"></div><!-- /.sticky-header__content -->
+    </div><!-- /.stricky-header -->
+
+    <!--Listing Top Start-->
+    <section class="listing-details-top">
+        <div class="container">
+            <ul class="list-unstyled listing-details-top__menu">
+                <li><a th:href="@{/}">Ride</a></li>
+                <li><span>-</span></li>
+                <li class="active"><a th:href="@{/driver-ride}">My Ride</a></li>
+            </ul>
+        </div>
+    </section>
+    <!--Listing Top End-->
+    <!--    <h1 th:text="${rideJourney[0].id}"></h1>-->
+
+    <!--Listing Details Start-->
+    <section class="listing-details">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-8 col-lg-7">
+                    <div class="listing-details__left">
+                        <div class="listing-details__gallery clearfix">
+                            <style>
+                                #map {
+                                    height: 400px;
+                                    border-radius: 5px;
+                                    border: solid medium darkblue;
+                                    width: 100%;
+                                    margin: auto;
+                                }
+                            </style>
+
+
+                            <div id="map"></div>
+                            <!--                            <div class="listing-details__gallery-content-box car_display" style="background-image: url('/assets/images/car.jpg')">-->
+                            <!--                            </div>-->
+                            <div class="rounded shadow p-2 my-3">
+                                <input class="form-control form-control-lg mb-2"  name="pickup-location" placeholder="Add Pickup Location" type="text" value="">
+<!--                                <input class="form-control form-control-line mb-2"  name="latitude" placeholder="Latitude" required>-->
+<!--                                <input class="form-control form-control-line mb-2"  name="longitude" placeholder="Longitude" required>-->
+                                <button class="btn btn-outline-dark btn-lg text-uppercase w-100" id="add-pickup-location-btn">Add Pickup Location</button>
+                            </div>
+
+
+                        </div>
+                        <div class="listing-details__reviews-box" id="reviews-display">
+                            <h3 class="listing-details__reviews-title">Passengers</h3>
+                            <div class=" col-12 listing-details__reviews-single" th:each="rideJourney : ${rideJourney}">
+                                <div class=" col-1 listing-details__reviews-img">
+                                    <div class="fa fa-user fa-4x"></div>
+                                </div>
+                                <div class="col-8 listing-details__reviews-content">
+                                    <div class="listing-details__reviews-content-top">
+                                        <div class="listing-details__reviews-content-top-title">
+                                            <h3 th:text="${rideJourney.username}"></h3>
+                                        </div>
+                                        <div class="listing-details__reviews-content-top-rating">
+
+                                        </div>
+                                    </div>
+                                    <p class="listing-details__reviews-content-text" th:text="${rideJourney.note}">
+                                    </p>
+                                </div>
+                                <div class="col-3" style="margin: auto">
+                                    <a class="thm-btn main-menu-wrapper__btn"
+                                       style="margin: auto" th:href="@{/journey-details/{id}(id=${rideJourney.id})}">Review</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-5">
+                    <div class="listing-details__right" style="margin: 0 0 40px 0;">
+                        <h3 class="listing-deails__right-title" th:text="${driver.username}"></h3>
+                        <div class="listing-details__features-box">
+                            <div class="listing-details__features-box-single">
+                                <div class="listing-details__features-box-left">
+                                    <p>Make:</p>
+                                </div>
+                                <div class="listing-details__features-box-right">
+                                    <span th:text="${car.make}">Land Rover</span>
+                                </div>
+                            </div>
+                            <div class="listing-details__features-box-single">
+                                <div class="listing-details__features-box-left">
+                                    <p>Model:</p>
+                                </div>
+                                <div class="listing-details__features-box-right">
+                                    <span th:text="${car.model}">Evoupe</span>
+                                </div>
+                            </div>
+                            <div class="listing-details__features-box-single">
+                                <div class="listing-details__features-box-left">
+                                    <p>Category:</p>
+                                </div>
+                                <div class="listing-details__features-box-right">
+                                    <span th:text="${car.category}">Sedan Car</span>
+                                </div>
+                            </div>
+                            <div class="listing-details__features-box-single">
+                                <div class="listing-details__features-box-left">
+                                    <p>Color:</p>
+                                </div>
+                                <div class="listing-details__features-box-right">
+                                    <spanb th:text="${car.color}">Blue</spanb>
+                                </div>
+                            </div>
+                            <div class="listing-details__features-box-single">
+                                <div class="listing-details__features-box-left">
+                                    <p>Seater:</p>
+                                </div>
+                                <div class="listing-details__features-box-right">
+                                    <span th:text="${car.noSeat}">5-door</span>
+                                </div>
+                            </div>
+                            <div class="listing-details__features-box-single">
+                                <div class="listing-details__features-box-left">
+                                    <p>Special feature:</p>
+                                </div>
+                                <div class="listing-details__features-box-right">
+                                    <span th:text="${car.specialFeature}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="listing-details__features-box">
+                            <div class="listing-details__features-box-single">
+                                <div class="listing-details__features-box-left">
+                                    <p>Origin:</p>
+                                </div>
+                                <div class="listing-details__features-box-right">
+                                    <span th:text="${ride.origin}">Bowen University</span>
+                                </div>
+                            </div>
+                            <div class="listing-details__features-box-single">
+                                <div class="listing-details__features-box-left">
+                                    <p>Destination:</p>
+                                </div>
+                                <div class="listing-details__features-box-right">
+                                    <span th:text="${ride.destination}">Lambert Electromec</span>
+                                </div>
+                            </div>
+                            <div class="listing-details__features-box-single">
+                                <div class="listing-details__features-box-left">
+                                    <p>Departure Date:</p>
+                                </div>
+                                <div class="listing-details__features-box-right">
+                                    <span th:text="${ride.date}">20/21/2005</span>
+                                </div>
+                            </div>
+                            <div class="listing-details__features-box-single">
+                                <div class="listing-details__features-box-left">
+                                    <p>Departure Time:</p>
+                                </div>
+                                <div class="listing-details__features-box-right">
+                                    <span th:text="${ride.time}">10:23 AM</span>
+                                </div>
+                            </div>
+                            <div class="listing-details__features-box-single">
+                                <div class="listing-details__features-box-left">
+                                    <p>Available Seats for Sharing:</p>
+                                </div>
+                                <div class="listing-details__features-box-right">
+                                    <span th:text="${ride.availableSeat}"></span>
+                                </div>
+                            </div>
+                            <!--                            <div class="listing-details__features-box-single">-->
+                            <!--                                <div class="listing-details__features-box-left">-->
+                            <!--                                    <p>Price($)</p>-->
+                            <!--                                </div>-->
+                            <!--                                <div class="listing-details__features-box-right">-->
+                            <!--                                    <span th:text="${ride.price}"></span>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+                        </div>
+                        <div class="listing-details__ask-question">
+                            <div class="col-12" style="display: flex">
+                                <a class="col-12  listing-details__ask-question-btn accept " id="starRide"
+                                   th:href="@{/start-ride}">Start Ride</a>
+                            </div>
+                            <div class="col-12" style="display: flex">
+                                <a class="col-5  listing-details__ask-question-btn edit " href="#" id="editRide"
+                                   style="width: 47.666667%">Edit Ride</a>
+                                <a class="col-5 listing-details__ask-question-btn reject" href="#" id="cancelRide"
+                                   style="width: 47.666667%; margin-left: 17px">Cancel Ride</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="listing-details__reviews-box" id="reviews-display-2">
+                <h3 class="listing-details__reviews-title">Reviews</h3>
+                <
+                <div class=" col-12 listing-details__reviews-single" th:each="rideJourney : ${rideJourney}">
+                    <div class=" col-1 listing-details__reviews-img">
+                        <div class="fa fa-user fa-4x"></div>
+                    </div>
+                    <div class="col-9 listing-details__reviews-content">
+                        <div class="listing-details__reviews-content-top">
+                            <div class="listing-details__reviews-content-top-title">
+                                <h3 th:text="${rideJourney.username}"></h3>
+                            </div>
+                            <div class="listing-details__reviews-content-top-rating">
+
+                            </div>
+                        </div>
+                        <p class="listing-details__reviews-content-text" th:text="${rideJourney.note}">
+                        </p>
+                    </div>
+                    <div class="col-2" style="margin: auto">
+                        <a class="fa fa-file fa-2x" style="margin: auto"
+                           th:href="@{/journey-details/{id}(id=${rideJourney.id})}"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Listing Details End-->
+
+    <!--Site Footer One Start-->
+    <footer class="site-footer">
+        <div class="site-footer-bg" style="background-image: url(/assets/images/backgrounds/site-footer-bg.jpg)">
+        </div>
+        <div class="container">
+            <div class="site-footer__top">
+                <div class="row">
+                    <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="100ms">
+                        <div class="footer-widget__column footer-widget__about">
+                            <div class="footer-widget__about-logo">
+                                <a th:href="@{/}"><img alt="" src="/assets/images/resources/footer-logo.png"></a>
+                            </div>
+                            <p class="footer-widget__about-text">ShareRide promotes car sharing where commuters going to
+                                the
+                                campus using similar routes can share transportation.
+                            </p>
+                            <a class="thm-btn footer-widget__about-btn" th:href="@{/register}">Register</a>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="200ms">
+                        <div class="footer-widget__column footer-widget__explore clearfix">
+                            <h3 class="footer-widget__title">Explore</h3>
+                            <ul class="footer-widget__explore-list footer-widget__explore-list-width list-unstyled">
+                                <li><a th:href="@{/}">Ride</a></li>
+                                <li><a th:href="@{/shared-ride}">Shared Ride</a></li>
+                                <li><a th:href="@{/current-ride}">Current Ride</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="400ms">
+                        <div class="footer-widget__column footer-widget__contact">
+                            <h3 class="footer-widget__title">Contact</h3>
+                            <ul class="list-unstyled footer-widget__contact-list">
+                                <li>
+                                    <div class="icon">
+                                        <span class="icon-pin"></span>
+                                    </div>
+                                    <div class="text">
+                                        <p>88 Broklyn Golden Street, USA</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="icon">
+                                        <span class="icon-clock"></span>
+                                    </div>
+                                    <div class="text">
+                                        <p>Mon - Sat 8:00 - 6:30</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="icon">
+                                        <span class="icon-email"></span>
+                                    </div>
+                                    <div class="text">
+                                        <p><a href="mailto:needhelp@company.com">needhelp@company.com</a></p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="icon">
+                                        <span class="icon-telephone"></span>
+                                    </div>
+                                    <div class="text">
+                                        <p><a href="tel:00-666-888-0000">00 666 888 0000</a></p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="400ms">
+                        <div class="footer-widget__column footer-widget__newsletter">
+                            <h3 class="footer-widget__title">Newsletter</h3>
+                            <p class="footer-widget__newsletter-text">Subsrcibe for latest articles and resources
+                            </p>
+                            <form class="footer-widget__newsletter-form">
+                                <div class="footer-widget__newsletter-input-box">
+                                    <input name="email" placeholder="Email address" type="email">
+                                    <button class="footer-widget__newsletter-btn" type="submit"><i
+                                            class="fas fa-envelope"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="site-footer-bottom">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="site-footer-bottom__inner">
+                            <div class="site-footer__social">
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a class="clr-fb" href="#"><i class="fab fa-facebook"></i></a>
+                                <a class="clr-ins" href="#"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--Site Footer One End-->
+
+
+</div><!-- /.page-wrapper -->
+
+
+<div class="mobile-nav__wrapper">
+    <div class="mobile-nav__overlay mobile-nav__toggler"></div>
+    <!-- /.mobile-nav__overlay -->
+    <div class="mobile-nav__content">
+        <span class="mobile-nav__close mobile-nav__toggler"><i class="fa fa-times"></i></span>
+
+        <div class="logo-box">
+            <a aria-label="logo image" href="index.html"><img alt="" src="/assets/images/resources/logo-1.png"
+                                                              width="155"/></a>
+        </div>
+        <!-- /.logo-box -->
+        <div class="mobile-nav__container"></div>
+        <!-- /.mobile-nav__container -->
+
+        <ul class="mobile-nav__contact list-unstyled">
+            <li>
+                <i class="fa fa-envelope"></i>
+                <a href="mailto:needhelp@packageName__.com">needhelp@entox.com</a>
+            </li>
+            <li>
+                <i class="fa fa-phone-alt"></i>
+                <a href="tel:666-888-0000">666 888 0000</a>
+            </li>
+        </ul><!-- /.mobile-nav__contact -->
+        <div class="mobile-nav__top">
+            <div class="mobile-nav__social">
+                <a class="fab fa-twitter" href="#"></a>
+                <a class="fab fa-facebook-square" href="#"></a>
+                <a class="fab fa-pinterest-p" href="#"></a>
+                <a class="fab fa-instagram" href="#"></a>
+            </div><!-- /.mobile-nav__social -->
+        </div><!-- /.mobile-nav__top -->
+
+
+    </div>
+    <!-- /.mobile-nav__content -->
+</div>
+<!-- /.mobile-nav__wrapper -->
+
+<div class="search-popup">
+    <div class="search-popup__overlay search-toggler"></div>
+    <!-- /.search-popup__overlay -->
+    <div class="search-popup__content">
+        <form action="#">
+            <label class="sr-only" for="search">search here</label><!-- /.sr-only -->
+            <input id="search" placeholder="Search Here..." type="text"/>
+            <button aria-label="search submit" class="thm-btn" type="submit">
+                <i class="icon-magnifying-glass"></i>
+            </button>
+        </form>
+    </div>
+    <!-- /.search-popup__content -->
+</div>
+<!-- /.search-popup -->
+
+<a class="scroll-to-target scroll-to-top" data-target="html" href="#"><i class="fa fa-angle-up"></i></a>
+
+<!--<script src="/assets/js/driver-location-service.js"></script>-->
+<script src="/assets/js/current-ride-service.js"></script>
+
+<script>
+    let editModal = document.getElementById("editModal");
+    let editRide = document.getElementById("editRide");
+    let submit = document.getElementById("submit-form");
+    let failedModal = document.getElementById("failedModal");
+    let status = document.getElementById("status").innerHTML;
+    let statusMessage1 = document.getElementById("status-message1");
+    let close = document.getElementById("close");
+    // let cancelRide = document.getElementById("cancelRide");
+    let cancelRideModal = document.getElementById("cancelRideModal");
+    let no = document.getElementById("no");
+    var editSuccessModal = document.getElementById("editSuccessModal");
+
+
+    function submitForm() {
+        submit.click();
+        console.log("yes")
+    }
+
+    $(document).ready(function () {
+        editRide.onclick = function () {
+            editModal.style.display = "block";
+        }
+
+        if (status == "no-journey") {
+            failedModal.style.display = "block";
+            statusMessage1.innerHTML = "No rider has joined your ride. Kindly wait or cancel the ride";
+
+        } else if (status == "no-accepted") {
+            statusMessage1.innerHTML = "You have one or more pending journey to be approved";
+            failedModal.style.display = "block";
+        } else if (status == "rideEdited") {
+            editSuccessModal.style.display = "block";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == editModal) {
+                editModal.style.display = "none";
+            } else if (event.target == failedModal) {
+                failedModal.style.display = "none";
+            } else if (event.target == cancelRideModal) {
+                cancelRideModal.style.display = "none";
+            }
+        };
+
+        cancelRide.onclick = function () {
+            cancelRideModal.style.display = "block";
+        }
+
+        close.onclick = function () {
+            failedModal.style.display = "none";
+        }
+        no.onclick = function () {
+            cancelRideModal.style.display = "none";
+        }
+    });
+</script>
+
+
+<script src="/assets/vendors/jquery/jquery-3.5.1.min.js"></script>
+<script src="/assets/vendors/jquery-migrate/jquery-migrate.min.js"></script>
+<script src="/assets/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendors/jarallax/jarallax.min.js"></script>
+<script src="/assets/vendors/jquery-ajaxchimp/jquery.ajaxchimp.min.js"></script>
+<script src="/assets/vendors/jquery-appear/jquery.appear.min.js"></script>
+<script src="/assets/vendors/jquery-circle-progress/jquery.circle-progress.min.js"></script>
+<script src="/assets/vendors/jquery-magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="/assets/vendors/jquery-validate/jquery.validate.min.js"></script>
+<script src="/assets/vendors/nouislider/nouislider.min.js"></script>
+<script src="/assets/vendors/odometer/odometer.min.js"></script>
+<script src="/assets/vendors/swiper/swiper.min.js"></script>
+<script src="/assets/vendors/tiny-slider/tiny-slider.min.js"></script>
+<script src="/assets/vendors/wnumb/wNumb.min.js"></script>
+<script src="/assets/vendors/wow/wow.js"></script>
+<script src="/assets/vendors/isotope/isotope.js"></script>
+<script src="/assets/vendors/countdown/countdown.min.js"></script>
+<script src="/assets/vendors/owl-carousel/owl.carousel.min.js"></script>
+<script src="/assets/vendors/twentytwenty/twentytwenty.js"></script>
+<script src="/assets/vendors/twentytwenty/jquery.event.move.js"></script>
+<script src="/assets/vendors/bxslider/jquery.bxslider.min.js"></script>
+<script src="/assets/vendors/bootstrap-select/js/bootstrap-select.min.js"></script>
+<script src="/assets/vendors/vegas/vegas.min.js"></script>
+<script src="/assets/vendors/jquery-ui/jquery-ui.js"></script>
+<script src="/assets/vendors/timepicker/timePicker.js"></script>
+
+
+<!-- template js -->
+<script src="/assets/js/entox.js"></script>
+</body>
+
+</html>
